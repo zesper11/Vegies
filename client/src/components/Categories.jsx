@@ -1,6 +1,13 @@
 import { categories_list } from "../assets/assets";
 
-const Categories = () => {
+const Categories = ({ selectedCategory, setSelectedCategory }) => {
+  const handleCategoryClick = (categoryName) => {
+    const nextCategory =
+      selectedCategory === categoryName ? "All" : categoryName;
+
+    setSelectedCategory(nextCategory);
+  };
+
   return (
     <div>
       <div className="section-heading">
@@ -13,7 +20,8 @@ const Categories = () => {
         {categories_list.map((category) => (
           <div
             key={category.category_name}
-            className="category-card cursor-pointer lg:w-40 md:w-30 sm:w-20 text-center rounded-full"
+            className={`category-card cursor-pointer lg:w-40 md:w-30 sm:w-20 text-center p-4 ${selectedCategory === category.category_name ? "bg-green-200 text-white" : ""}`}
+            onClick={() => handleCategoryClick(category.category_name)}
           >
             <img
               src={category.category_image}
